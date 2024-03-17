@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
 const postController = require("./controllers/postController");
+const userController = require("./controllers/userController");
 
 require("dotenv").config();
 
@@ -23,6 +24,9 @@ app.get("/posts/:id", postController.getPostById);
 app.post("/posts", postController.createNewPost);
 app.put("/posts/:id", postController.editPostById);
 app.delete("/posts/:id", postController.deletePostById);
+
+app.post("/register", userController.register);
+app.post("/login", userController.login);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
