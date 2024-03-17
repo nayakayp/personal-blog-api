@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const authenticate = require("./middleware/authenticate");
 
 const postController = require("./controllers/postController");
 const userController = require("./controllers/userController");
@@ -21,9 +22,9 @@ app.use(bodyParser.json());
 // Routes
 app.get("/posts", postController.getAllPost);
 app.get("/posts/:id", postController.getPostById);
-app.post("/posts", postController.createNewPost);
-app.put("/posts/:id", postController.editPostById);
-app.delete("/posts/:id", postController.deletePostById);
+app.post("/posts", authenticate, postController.createNewPost);
+app.put("/posts/:id", authenticate, postController.editPostById);
+app.delete("/posts/:id", authenticate, postController.deletePostById);
 
 app.post("/register", userController.register);
 app.post("/login", userController.login);
